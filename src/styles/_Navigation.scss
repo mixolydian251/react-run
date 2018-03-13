@@ -1,0 +1,15 @@
+.navigation{
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: 70px;
+  width: 100vw;
+  max-width: 700px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  color: white;
+  font-size: 1.7rem;
+  background: linear-gradient(to bottom right, #ff4336, #b62534);
+  margin-left: auto;
+  margin-right: auto;
+}
