@@ -13,7 +13,6 @@ firebase.initializeApp(config);
 
 const database = firebase.database();
 const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
-
 const facebookAuthProvider = new firebase.auth.FacebookAuthProvider();
 facebookAuthProvider.addScope('public_profile');
 

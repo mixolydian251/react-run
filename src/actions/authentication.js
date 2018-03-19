@@ -7,7 +7,7 @@ export const login = uid => ({
 
 export const startLoginGoogle = () => {
   return dispatch => {
-    return firebase.auth().signInWithRedirect(googleAuthProvider);
+    return firebase.auth().signInWithRedirect(googleAuthProvider)
   };
 };
 
@@ -24,8 +24,8 @@ export const logout = () => ({
 export const startLogout = () => {
   return dispatch => {
     return firebase.auth().signOut()
-      .then(() => {
-        window.location.replace("http://thedapperdeveloper.com");
-      });
+    .then(() => {
+      window.location.replace("http://localhost:8080");
+    });
   };
 };

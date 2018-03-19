@@ -13,12 +13,13 @@
   color: white;
   margin-left: auto;
   margin-right: auto;
-
-
-
   font-size: 3rem;
+  animation: moveInBottom 500ms ease-out;
 
-  animation: moveInBottom 500ms ease;
+  &__chart{
+    height: 80%;
+    width: 95%;
+  }
 }
 
 

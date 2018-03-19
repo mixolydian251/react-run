@@ -1,5 +1,6 @@
 import React from 'react';
 import { stringifyTime, calculateDistance } from '../api/Run';
+import { startAddRun } from "../actions/run"
 import { connect } from 'react-redux';
 
 class HomePage extends React.Component{
@@ -13,7 +14,8 @@ class HomePage extends React.Component{
     time: 0,
     speed: 0,
     distRef: 0,
-    distance: 0
+    distance: 0,
+    signInModal: false,
   };
 
   runTimer = () => {
@@ -70,6 +72,18 @@ class HomePage extends React.Component{
     speed: this.state.speed > 0 ? prevState.speed - 0.5 : 0
   }));
 
+  handleUpload = () => {
+    if(this.props.uid && this.state.distance){
+      this.props.startUpload({
+        date: Number(new Date().getTime()),
+        time: this.state.time,
+        distance: this.state.distance,
+      })
+    } else if (!this.props.uid){
+      this.setState({signInModal: true })
+    }
+  };
+
   render () {
     return(
       <div className="runPage">
@@ -77,7 +91,11 @@ class HomePage extends React.Component{
                 onClick={this.reset}>
           Reset
         </button>
-        <button className="runPage__button runPage__button--upload">Upload</button>
+
+        <button className="runPage__button runPage__button--upload"
+                onClick={this.handleUpload}>
+          Upload
+        </button>
 
         <div className="runPage__measurement"
               onClick={this.runTimer}>
@@ -97,13 +115,25 @@ class HomePage extends React.Component{
                   onClick={this.handleDecrease}> - </button>
             </span>
         </div>
+
         <div className="runPage__measurement">
           <span className="runPage__measurement--title">Distance:</span>
           <span className="runPage__measurement--number">{this.state.distance.toFixed(2)} miles</span>
         </div>
+
+
+
       </div>
     )
   }
 }
 
-export default HomePage
+const mapDispatchToProps = dispatch => ({
+  startUpload: (run) => dispatch(startAddRun(run))
+});
+
+const mapStateToProps = (state) => ({
+  uid: state.auth.uid
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage)

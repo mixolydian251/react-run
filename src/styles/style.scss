@@ -10,3 +10,17 @@
 @import "Navigation";
 @import "DataPage";
 @import "SettingsPage";
+@import "LoginModal";
+@import "Displayruns";
+
+
+.loading{
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #444444;
+  color: #ffffff;
+  font-size: 2rem;
+}
