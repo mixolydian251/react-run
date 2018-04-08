@@ -1,22 +1,39 @@
 import React from 'react';
-import { Router, Route, Switch, Link, NavLink } from 'react-router-dom';
+import { Route, Router, Switch } from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
-import HomePage from "../components/HomePage";
-import Register from "../components/Register";
-import PageNotFound from "../components/PageNotFound";
 
-export const history = createHistory();
+import RunPage from '../components/RunPage';
+import DataPage from "../components/DataPage";
+import SettingsPage from '../components/SettingsPage'
+import Navigation from '../components/NavigationBar';
+import NotFoundPage from '../components/NotFoundPage';
 
-const AppRouter = () => (
-  <Router history={history}>
-    <div>
-      <Switch>
-        <Route path="/" exact={true} component={HomePage} />
-        <Route path="/register" component={Register} />
-        <Route component={PageNotFound} />
-      </Switch>
-    </div>
-  </Router>
-);
+import AdminRoute from './AdminRoute';
+import PrivateRoute from './PrivateRoute';
+import PublicRoute from './PublicRoute';
+
+
+const history = createHistory();
+
+class AppRouter extends React.Component {
+  render() {
+    return (
+      <Router
+        history={history}>
+        <div>
+          <Switch>
+            <Route path="/" component={RunPage} exact={true} />
+            <Route path="/data" component={DataPage} />
+            <Route path="/settings" component={SettingsPage} />
+            <Route component={NotFoundPage}/>
+          </Switch>
+          <Navigation/>
+        </div>
+      </Router>
+    );
+  }
+}
 
 export default AppRouter;
+
+export { history };
