@@ -10,7 +10,7 @@ class DataPage extends React.Component {
     datasets: [{
       label: 'Distance',
       yAxisID: 'B',
-      data: this.props.runs.map(run => run.distance),
+      data: this.props.runs.map(run => run.distance.toFixed(2)),
       borderColor: '#ffffff',
       borderWidth: 3,
       backgroundColor: 'rgba(255,255,255,0.2)',
@@ -18,7 +18,7 @@ class DataPage extends React.Component {
     }, {
       label: 'Pace',
       yAxisID: 'A',
-      data: this.props.runs.map(run => run.distance/(run.time / 3600000)),
+      data: this.props.runs.map(run => (run.distance/(run.time / 3600000)).toFixed(1)),
       borderColor: 'rgba(255,255,255,0.7)',
       borderWidth: 2,
       backgroundColor: ['rgba(255,30,30,0.5)','rgba(13,146,235,0.5)','rgba(183,44,254,0.5)','rgba(255,215,0,0.6)', 'rgba(32,255,80,0.5)'],
@@ -62,10 +62,9 @@ class DataPage extends React.Component {
         id: 'A',
         type: 'linear',
         position: 'left',
-        // ticks:{
-        //   callback: (t) => stringifyTime(t),
-        //   stepSize: 30000, //add a tick every 5 seconds
-        // }
+        ticks:{
+          beginAtZero: true,
+        }
       }, {
         scaleLabel: {
           display: true,
@@ -77,6 +76,9 @@ class DataPage extends React.Component {
         id: 'B',
         type: 'linear',
         position: 'right',
+        ticks:{
+          beginAtZero: true,
+        }
       }],
       xAxes: [{
         scaleLabel: {
