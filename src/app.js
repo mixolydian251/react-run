@@ -1,42 +1,19 @@
-import 'normalize.css/normalize.css';
 import './styles/style.scss';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { firebase } from './firebase/firebase';
-import { login, logout } from './actions/authentication';
-import configureStore from './store/configureStore';
-import AppRouter, { history } from './routers/AppRouter';
-import Loading from './components/Loading'
-import { startSetRuns } from "./actions/run";
+import ApolloClient from 'apollo-boost'
+import AppRouter from './routers/AppRouter'
+import { ApolloProvider } from 'react-apollo'
 
-const store = configureStore();
-
-
-ReactDOM.render(<Loading/>, document.getElementById('app'));
+const client = new ApolloClient({
+  uri: "http://localhost:3000/graphql",
+});
 
 const jsx = (
-  <Provider store={store}>
-    <AppRouter />
-  </Provider>
+  <ApolloProvider client={client}>
+    <AppRouter/>
+  </ApolloProvider>
 );
 
-let hasRendered = false;
+ReactDOM.render(jsx, document.getElementById('app'));
 
-const renderApp = () => {
-  if (!hasRendered) {
-    ReactDOM.render(jsx, document.getElementById('app'));
-    hasRendered = true;
-  }
-};
-
-firebase.auth().onAuthStateChanged( user => {
-  if (user) {
-    store.dispatch(login(user.uid));
-    store.dispatch(startSetRuns(user.uid));
-    renderApp();
-  } else {
-    store.dispatch(logout());
-    renderApp();
-  }
-});
